@@ -28,23 +28,23 @@ export class ProductDetailComponent implements OnInit {
 
   fetchProduct(id: string) {
     this.productsService.getProduct(id)
-    .subscribe(product => {
-      this.product = product;
-    });
+      .subscribe(product => {
+        this.product = product;
+      });
   }
 
   createProduct() {
     const newProduct: Product = {
       _id: '222',
       name: 'nuevo desde angular',
-      image: 'assets/images/banner-1.jpg',
+      images: ['assets/images/banner-1.jpg'],
       price: 3000,
       description: 'nuevo producto'
     };
     this.productsService.createProduct(newProduct)
-    .subscribe(product => {
-      console.log(product);
-    });
+      .subscribe(product => {
+        console.log(product);
+      });
   }
 
   updateProduct() {
@@ -53,16 +53,16 @@ export class ProductDetailComponent implements OnInit {
       description: 'edicion titulo'
     };
     this.productsService.updateProduct('2', updateProduct)
-    .subscribe(product => {
-      console.log(product);
-    });
+      .subscribe(product => {
+        console.log(product);
+      });
   }
 
   deleteProduct() {
     this.productsService.deleteProduct('222')
-    .subscribe(rta => {
-      console.log(rta);
-    });
+      .subscribe(rta => {
+        console.log(rta);
+      });
   }
 
 }
