@@ -49,3 +49,55 @@
     <option value="tag-4">Tag 4</option>
   </select>
 </p>
+
+<p>
+  Agree: {{ agreeField.value }}
+  <input type="checkbox" [formControl]="agreeField" />
+</p>
+
+<p>
+  Gender: {{ genderField.value }}
+  <label for="">
+    <input
+      name="gender"
+      type="radio"
+      value="male"
+      [formControl]="genderField"
+    />
+    Male
+  </label>
+  <label for="">
+    <input
+      name="gender"
+      type="radio"
+      value="female"
+      [formControl]="genderField"
+    />
+    Female
+  </label>
+  <label for="">
+    <input
+      name="gender"
+      type="radio"
+      value="other"
+      [formControl]="genderField"
+    />
+    Other
+  </label>
+</p>
+
+<p>
+  Gender: {{ zoneField.value }}
+  <label for="">
+    <input name="zone" type="radio" value="1" [formControl]="zoneField" />
+    Zona 1
+  </label>
+  <label for="">
+    <input name="zone>" type="radio" value="2" [formControl]="zoneField" />
+    Zona 2
+  </label>
+  <label for="">
+    <input name="zone" type="radio" value="3" [formControl]="zoneField" />
+    Zona 3
+  </label>
+</p>
