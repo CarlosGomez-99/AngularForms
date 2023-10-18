@@ -1,6 +1,51 @@
 <p>
-    {{ nameField.value }}
-    <input type="text" [formControl]="nameField" />
+  Name: {{ nameField.value }}
+  <input type="text" [formControl]="nameField" />
 
-    <button (click)="getNameValue()">Get Value</button>
+  <button (click)="getNameValue()">Get Value</button>
+</p>
+
+<p>
+  Email: {{ emailField.value }}
+  <input type="email" [formControl]="emailField" />
+</p>
+
+<p>
+  Phone: {{ phoneField.value }}
+  <input type="tel" [formControl]="phoneField" />
+</p>
+
+<p>
+  Color: {{ colorField.value }}
+  <input type="color" [formControl]="colorField" />
+</p>
+
+<p>
+  Date: {{ dateField.value }}
+  <input type="date" [formControl]="dateField" />
+</p>
+
+<p>
+  Number: {{ numberField.value }}
+  <input type="number" [formControl]="numberField" />
+</p>
+
+<p>
+  Category: {{ categoryField.value }}
+  <select [formControl]="categoryField">
+    <option value="category-1">Category 1</option>
+    <option value="category-2">Category 2</option>
+    <option value="category-3">Category 3</option>
+    <option value="category-4">Category 4</option>
+  </select>
+</p>
+
+<p>
+  Tags: {{ tagField.value }}
+  <select [formControl]="tagField" multiple>
+    <option value="tag-1">Tag 1</option>
+    <option value="tag-2">Tag 2</option>
+    <option value="tag-3">Tag 3</option>
+    <option value="tag-4">Tag 4</option>
+  </select>
 </p>

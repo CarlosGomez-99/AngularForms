@@ -8,8 +8,15 @@ import { FormControl } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  nameField = new FormControl('soy un control');
+  nameField = new FormControl('');
+  emailField = new FormControl('');
+  phoneField = new FormControl('');
+  colorField = new FormControl('');
+  dateField = new FormControl('');
+  numberField = new FormControl(24);
 
+  categoryField = new FormControl('category-4');  
+  tagField = new FormControl(''); 
 
   ngOnInit(): void {
     this.nameField.valueChanges.subscribe(value => {
