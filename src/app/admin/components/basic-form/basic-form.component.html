@@ -1,1 +1,6 @@
-<p>basic-form works!</p>
+<p>
+    {{ nameField.value }}
+    <input type="text" [formControl]="nameField" />
+
+    <button (click)="getNameValue()">Get Value</button>
+</p>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicFormComponent implements OnInit {
 
-  constructor() { }
+  nameField = new FormControl('soy un control');
+
 
   ngOnInit(): void {
+    this.nameField.valueChanges.subscribe(value => {
+      console.log(value);
+    });
+  }
+
+  getNameValue() {
+    console.log(this.nameField.value);
   }
 
 }
