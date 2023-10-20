@@ -18,9 +18,9 @@ export class BasicFormComponent implements OnInit {
     // this.nameField.valueChanges.subscribe(value => {
     //   console.log(value);
     // });
-    this.form.valueChanges.subscribe(value => {
-      console.log(value);
-    });
+    // this.form.valueChanges.subscribe(value => {
+    //   console.log(value);
+    // });
   }
 
   getNameValue() {
@@ -37,7 +37,10 @@ export class BasicFormComponent implements OnInit {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/)]],
+      fullName: this.formBuilder.group({
+        name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+        lastname: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]]
+      }),
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       color: ['#000000'],
@@ -52,7 +55,11 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField() {
-    return this.form.get('name');
+    return this.form.get('fullName.name');
+  }
+
+  get lastnameField() {
+    return this.form.get('fullName.lastname');
   }
 
   get emailField() {
