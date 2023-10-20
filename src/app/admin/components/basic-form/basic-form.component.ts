@@ -8,26 +8,17 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 })
 export class BasicFormComponent implements OnInit {
 
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    email: new FormControl(''),
-    phone: new FormControl(''),
-    color: new FormControl(''),
-    date: new FormControl(''),
-    number: new FormControl(24),
-    category: new FormControl('category-4'),
-    tag: new FormControl(''),
-    agree: new FormControl(false),
-    gender: new FormControl(''),
-    zone: new FormControl('')
-  });
+  form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.buildForm();
   }
 
   ngOnInit(): void {
-    this.nameField.valueChanges.subscribe(value => {
+    // this.nameField.valueChanges.subscribe(value => {
+    //   console.log(value);
+    // });
+    this.form.valueChanges.subscribe(value => {
       console.log(value);
     });
   }
@@ -38,14 +29,26 @@ export class BasicFormComponent implements OnInit {
 
   save(event): void {
     if (this.form.invalid) {
-      this.form.controls.name.markAsTouched();
+      this.form.markAllAsTouched();
       return;
     }
     console.log(this.form.value);
   }
 
   private buildForm(): void {
-
+    this.form = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(10)]],
+      email: [''],
+      phone: ['', Validators.required],
+      color: ['#000000'],
+      date: [''],
+      number: [24],
+      category: ['category-4'],
+      tag: [''],
+      agree: [false],
+      gender: [''],
+      zone: ['']
+    });
   }
 
   get nameField() {
@@ -98,6 +101,10 @@ export class BasicFormComponent implements OnInit {
 
   get isNameFieldInvalid() {
     return this.nameField.touched && this.nameField.invalid;
+  }
+
+  get isPhoneFieldInValid() {
+    return this.phoneField.touched && this.phoneField.invalid;
   }
 
 }
