@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -22,7 +22,9 @@ export class BasicFormComponent implements OnInit {
     zone: new FormControl('')
   });
 
-  zoneField = new FormControl('');
+  constructor(private formBuilder: FormBuilder) {
+    this.buildForm();
+  }
 
   ngOnInit(): void {
     this.nameField.valueChanges.subscribe(value => {
@@ -40,6 +42,10 @@ export class BasicFormComponent implements OnInit {
       return;
     }
     console.log(this.form.value);
+  }
+
+  private buildForm(): void {
+
   }
 
   get nameField() {
@@ -82,7 +88,7 @@ export class BasicFormComponent implements OnInit {
     return this.form.get('gender');
   }
 
-  get zoneFieldValid() {
+  get zoneField() {
     return this.form.get('zone');
   }
 
