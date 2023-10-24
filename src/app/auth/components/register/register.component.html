@@ -8,7 +8,12 @@
         <div class="col-xs">
           <mat-form-field>
             <mat-label>Email</mat-label>
-            <input placeholder="email" formControlName="email" matInput type="email">
+            <input
+              placeholder="email"
+              formControlName="email"
+              matInput
+              type="email"
+            />
           </mat-form-field>
         </div>
       </div>
@@ -16,22 +21,38 @@
         <div class="col-xs">
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input
+              placeholder="password"
+              formControlName="password"
+              matInput
+              type="password"
+            />
           </mat-form-field>
+          <div *ngIf="passwordFieldInvalid">
+            <mat-error *ngIf="passwordField.hasError('invalid_password')">
+              Password is <strong>INVALID</strong>
+            </mat-error>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
             <mat-label>Confirm Password</mat-label>
-            <input placeholder="password" formControlName="password" matInput type="password">
+            <input
+              placeholder="password"
+              formControlName="password"
+              matInput
+              type="password"
+            />
           </mat-form-field>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button [disabled]="form.invalid" mat-raised-button type="submit">Registro</button>
+      <button [disabled]="form.invalid" mat-raised-button type="submit">
+        Registro
+      </button>
     </mat-card-actions>
   </mat-card>
-
 </form>
