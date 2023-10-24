@@ -43,7 +43,7 @@ export class BasicFormComponent implements OnInit {
       }),
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
-      color: ['#000000'],
+      color: ['#42CC0F'],
       date: [''],
       number: [18, [Validators.required, Validators.min(18), Validators.max(100)]],
       category: ['category-4'],
@@ -70,7 +70,7 @@ export class BasicFormComponent implements OnInit {
     return this.form.get('phone');
   }
 
-  get colorField() {
+  get colorField() {  
     return this.form.get('color');
   }
 
@@ -110,8 +110,24 @@ export class BasicFormComponent implements OnInit {
     return this.nameField.touched && this.nameField.invalid;
   }
 
+  get isLastnameFieldInvalid() {
+    return this.lastnameField.touched && this.lastnameField.invalid;
+  }
+
+  get isEmailFieldInvalid() {
+    return this.emailField.touched && this.emailField.invalid;
+  }
+
   get isPhoneFieldInValid() {
     return this.phoneField.touched && this.phoneField.invalid;
+  }
+
+  get isNumeroFieldInValid() {
+    return this.numberField.touched && this.numberField.invalid;
+  }
+
+  get isAgreeFieldInValid() {
+    return this.agreeField.touched && this.agreeField.invalid;
   }
 
 }

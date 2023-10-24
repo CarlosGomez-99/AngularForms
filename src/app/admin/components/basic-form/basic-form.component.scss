@@ -1,30 +1,20 @@
-.error {
-    color: darkred;
-    font-size: .8rem;
-}
-
-.messages {
-    opacity: 0;
-    transition: all 0.5s ease-in;
-    &.active {
-        opacity: 1;
-    }
-}
-
 input {
-    border: 2px solid;
-    border-radius: 4px;
-    font-size: 1rem;
-    margin: 0.25rem;
-    min-width: 125px;
-    padding: 0.5rem;
-    transition: background-color 0.5s ease-out;
-    &.is-invalid {
-        background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% rgb(233, 103, 39);
-        background-size: 25px;
-    }
-    &.is-valid {
-        background: url("https://assets.digitalocean.com/labs/icons/hand-thumbs-up.svg") no-repeat 95% 50% lightgreen;
-        background-size: 25px;
-    }
+  &.is-valid {
+    border: 2px solid green;
+  }
+  &.is-invalid {
+    border: 2px solid red;
+  }
+}
+.messages {
+  opacity: 0;
+  transition: all 0.5s ease-in;
+  &.active {
+    opacity: 1;
+  }
+}
+form {
+  mat-form-field {
+    width: 100%;
+  }
 }
