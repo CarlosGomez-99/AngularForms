@@ -27,12 +27,12 @@
               matInput
               type="password"
             />
+            <div *ngIf="passwordFieldInvalid">
+              <mat-error *ngIf="passwordField.hasError('invalid_password')">
+                Password is <strong>INVALID</strong>
+              </mat-error>
+            </div>
           </mat-form-field>
-          <div *ngIf="passwordFieldInvalid">
-            <mat-error *ngIf="passwordField.hasError('invalid_password')">
-              Password is <strong>INVALID</strong>
-            </mat-error>
-          </div>
         </div>
       </div>
       <div class="row">
@@ -41,10 +41,15 @@
             <mat-label>Confirm Password</mat-label>
             <input
               placeholder="password"
-              formControlName="password"
+              formControlName="confirmPassword"
               matInput
               type="password"
             />
+            <div *ngIf="confirmPasswordFieldInvalid">
+              <mat-error *ngIf="form.hasError('password_not_match')">
+                Password and ConfirmPassword <strong>NO MATCH</strong>
+              </mat-error>
+            </div>
           </mat-form-field>
         </div>
       </div>

@@ -40,7 +40,11 @@ export class RegisterComponent implements OnInit {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6), MyValidators.validPassword]],
-    });
+      confirmPassword: ['', [Validators.required]]
+    }, {
+      validators: MyValidators.matchPassword
+    }
+    );
   }
 
   get passwordField() {
@@ -50,5 +54,14 @@ export class RegisterComponent implements OnInit {
   get passwordFieldInvalid() {
     return this.passwordField.touched && this.passwordField.invalid;
   }
+
+  get confirmPasswordField() {
+    return this.form.get('confirmPassword');
+  }
+
+  get confirmPasswordFieldInvalid() {
+    return this.confirmPasswordField.touched && this.form.errors;
+  }
+
 
 }
