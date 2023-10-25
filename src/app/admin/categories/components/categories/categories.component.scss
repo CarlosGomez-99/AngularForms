@@ -1,0 +1,14 @@
+.example-card {
+  max-width: 400px;
+}
+.example-card-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
+}
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 40px;
+}
