@@ -33,7 +33,12 @@
       </div>
       <div class="row">
         <div class="col-xs">
-          <img *ngIf="imageField.value" [src]="imageField.value" alt="" />
+          <img
+            *ngIf="imageField.value"
+            [src]="imageField.value"
+            [alt]="nameField"
+            style="max-width: 500px"
+          />
           <input
             (change)="onFileSelected($event)"
             placeholder="Image"
