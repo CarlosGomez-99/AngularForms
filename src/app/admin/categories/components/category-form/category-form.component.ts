@@ -17,6 +17,7 @@ export class CategoryFormComponent implements OnInit {
 
   form: FormGroup;
   categoryId: string;
+  action: string = 'Crear';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,6 +33,7 @@ export class CategoryFormComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.categoryId = params.id;
       if (this.categoryId) {
+        this.action = 'Actualizar';
         this.getCategory();
       }
     });
@@ -54,10 +56,8 @@ export class CategoryFormComponent implements OnInit {
   }
 
   saveCategory() {
-    console.log(this.form.value);
-
     if (this.form.valid) {
-      this.createCategory();
+      this.categoryId ? this.updateCategory() : this.createCategory();
     } else {
       this.form.markAllAsTouched();
     }
@@ -72,8 +72,17 @@ export class CategoryFormComponent implements OnInit {
       });
   }
 
+  private updateCategory() {
+    const category = this.form.value;
+    this.categoriesService.updateCategory(this.categoryId, category)
+      .subscribe((updatedCategory) => {
+        console.log(updatedCategory);
+        this.router.navigate(['./admin/categories']);
+      });
+  }
+
   private getCategory() {
-    this.categoriesService.getCategory(this.categoryId).subscribe((category) => {      
+    this.categoriesService.getCategory(this.categoryId).subscribe((category) => {
       this.form.patchValue(category);
     });
   }
