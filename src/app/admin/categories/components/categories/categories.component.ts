@@ -21,6 +21,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getAllCategories() {
+
     this.data$ = this.categoriesService.getAllCategories();
   }
 
