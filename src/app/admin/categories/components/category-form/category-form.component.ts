@@ -17,8 +17,16 @@ export class CategoryFormComponent implements OnInit {
 
   form: FormGroup;
   action: string = 'Crear';
+  isNew: boolean = true;
 
-  @Input() category: Category;
+  @Input()
+  set category(category: Category) {
+    if (category) {
+      this.isNew = false;
+      this.action = 'Actualizar';
+      this.form.patchValue(category);
+    }
+  }
   @Output() create = new EventEmitter();
   @Output() update = new EventEmitter();
 
@@ -50,7 +58,7 @@ export class CategoryFormComponent implements OnInit {
 
   saveCategory() {
     if (this.form.valid) {
-      this.category ? this.update.emit(this.form.value) : this.create.emit(this.form.value);
+      !this.isNew ? this.update.emit(this.form.value) : this.create.emit(this.form.value);
     } else {
       this.form.markAllAsTouched();
     }

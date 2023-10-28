@@ -43,7 +43,7 @@ export class CategoryComponent implements OnInit {
   }
 
   private getCategory(id: string) {
-    this.categoriesService.getCategory(this.category.id).subscribe((category) => {
+    this.categoriesService.getCategory(id).subscribe((category) => {
       this.category = category;
     });
   }
