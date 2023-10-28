@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 
 import { MyValidators } from './../../../../utils/validators';
 import { ProductsService } from './../../../../core/services/products/products.service';
+import { FileModel } from './../../../../core/models/file.model';
 
 import { Observable } from 'rxjs';
 
@@ -37,44 +38,66 @@ export class ProductCreateComponent implements OnInit {
     if (this.form.valid) {
       const product = this.form.value;
       this.productsService.createProduct(product)
-      .subscribe((newProduct) => {
-        console.log(newProduct);
-        this.router.navigate(['./admin/products']);
-      });
+        .subscribe((newProduct) => {
+          console.log(newProduct);
+          this.router.navigate(['./admin/products']);
+        });
     }
   }
 
   uploadFile(event) {
-    const file = event.target.files[0];
-    const name = 'image.png';
-    const fileRef = this.storage.ref(name);
-    const task = this.storage.upload(name, file);
+    const files = [...event.target.files] as FileModel[];
+    files.forEach(item => {
+      const name = `${item.name}`;
+      const fileRef = this.storage.ref(name);
+      const task = this.storage.upload(name, item);
+      task.snapshotChanges()
+      .pipe(
+        finalize(() => {
+          this.image$ = fileRef.getDownloadURL();
+          this.image$.subscribe(url => {
+            const fileList = this.imagesField.value as string[]
+            this.imagesField.setValue([...fileList, url ])
+          });
+        })
+      )
+      .subscribe();
+    })
 
-    task.snapshotChanges()
-    .pipe(
-      finalize(() => {
-        this.image$ = fileRef.getDownloadURL();
-        this.image$.subscribe(url => {
-          console.log(url);
-          this.form.get('image').setValue(url);
-        });
-      })
-    )
-    .subscribe();
+    if (files) {
+      this.imagesField.setValue([] as string[])
+    }
+
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      id: ['', [Validators.required]],
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.minLength(4)]],
       price: ['', [Validators.required, MyValidators.isPriceValid]],
-      image: [''],
-      description: ['', [Validators.required]],
+      images: [Array<string>(), [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      categoryId: ['', [Validators.required]]
     });
+  }
+
+  get titleField() {
+    return this.form.get('title');
   }
 
   get priceField() {
     return this.form.get('price');
+  }
+
+  get imagesField() {
+    return this.form.get('images');
+  }
+
+  get descriptionField() {
+    return this.form.get('description');
+  }
+
+  get categoryIdField() {
+    return this.form.get('categoryId');
   }
 
 }

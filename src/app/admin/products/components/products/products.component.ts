@@ -10,7 +10,7 @@ import { ProductsService } from './../../../../core/services/products/products.s
 export class ProductsComponent implements OnInit {
 
   products = [];
-  displayedColumns: string[] = ['id', 'name', 'price', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'image', 'price', 'actions'];
 
   constructor(
     private productsService: ProductsService
@@ -22,16 +22,16 @@ export class ProductsComponent implements OnInit {
 
   fetchProducts() {
     this.productsService.getAllProducts()
-    .subscribe(products => {
-      this.products = products;
-    });
+      .subscribe(products => {
+        this.products = products;
+      });
   }
 
   deleteProduct(id: string) {
     this.productsService.deleteProduct(id)
-    .subscribe(rta => {
-      this.fetchProducts();
-    });
+      .subscribe(rta => {
+        this.fetchProducts();
+      });
   }
 
 }
