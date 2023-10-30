@@ -10,6 +10,8 @@ import { ProductsService } from './../../../../core/services/products/products.s
 import { FileModel } from './../../../../core/models/file.model';
 
 import { Observable } from 'rxjs';
+import { Category } from 'src/app/core/models/category.model';
+import { CategoriesService } from 'src/app/core/services/categories.service';
 
 @Component({
   selector: 'app-product-create',
@@ -20,17 +22,20 @@ export class ProductCreateComponent implements OnInit {
 
   form: UntypedFormGroup;
   image$: Observable<any>;
+  categories: Category[] = [];
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private productsService: ProductsService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private categoriesService: CategoriesService
   ) {
     this.buildForm();
   }
 
   ngOnInit() {
+    this.getAllCategories();
   }
 
   saveProduct(event: Event) {
@@ -52,16 +57,16 @@ export class ProductCreateComponent implements OnInit {
       const fileRef = this.storage.ref(name);
       const task = this.storage.upload(name, item);
       task.snapshotChanges()
-      .pipe(
-        finalize(() => {
-          this.image$ = fileRef.getDownloadURL();
-          this.image$.subscribe(url => {
-            const fileList = this.imagesField.value as string[]
-            this.imagesField.setValue([...fileList, url ])
-          });
-        })
-      )
-      .subscribe();
+        .pipe(
+          finalize(() => {
+            this.image$ = fileRef.getDownloadURL();
+            this.image$.subscribe(url => {
+              const fileList = this.imagesField.value as string[]
+              this.imagesField.setValue([...fileList, url])
+            });
+          })
+        )
+        .subscribe();
     })
 
     if (files) {
@@ -100,4 +105,10 @@ export class ProductCreateComponent implements OnInit {
     return this.form.get('categoryId');
   }
 
+  private getAllCategories() {
+    this.categoriesService.getAllCategories()
+      .subscribe(categories => {
+        this.categories = categories;
+      });
+  }
 }
