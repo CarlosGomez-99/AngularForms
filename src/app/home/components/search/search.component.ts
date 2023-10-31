@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -18,9 +18,11 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchField.valueChanges.subscribe(query => {
-      this.search(query);
-    });    
+    this.searchField.valueChanges
+      .pipe(debounceTime(300))
+      .subscribe(query => {
+        this.search(query);
+      });
   }
 
   private search(query: string) {
@@ -31,6 +33,7 @@ export class SearchComponent implements OnInit {
       })
     ).subscribe((data: any) => {
       console.log(data);
+      this.results = data;
     });
   }
 
