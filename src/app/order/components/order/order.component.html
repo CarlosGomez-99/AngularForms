@@ -1,35 +1,108 @@
 <mat-horizontal-stepper>
   <mat-step>
     <ng-template matStepLabel>Sus productos</ng-template>
-    <div *ngIf="(products$ | async) as products">
-        <p *ngIf="products.length === 0">no hay productos</p>
-        <div class="row" *ngFor="let product of products">
-          <div class="col-xs-12 col-sm-2 col-md-2">
-            <div class="box">
-              <img class="image" [src]="product.image" alt="">
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-5 col-md-5">
-            <div class="box">
-              {{ product.title }}
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-5 col-md-5">
-            <div class="box">
-              {{ product.price }}
-            </div>
+    <div *ngIf="products$ | async as products">
+      <p *ngIf="products.length === 0">no hay productos</p>
+      <div class="row" *ngFor="let product of products">
+        <div class="col-xs-12 col-sm-2 col-md-2">
+          <div class="box">
+            <img class="image" [src]="product.image" alt="" />
           </div>
         </div>
+        <div class="col-xs-12 col-sm-5 col-md-5">
+          <div class="box">
+            {{ product.title }}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5">
+          <div class="box">
+            {{ product.price }}
+          </div>
+        </div>
+      </div>
     </div>
-    
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Datos personales</ng-template>
-    <h1>contenifo</h1>
+    <form [formGroup]="form" (ngSubmit)="save($event)">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Datos personales</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <div class="box">
+                <mat-form-field appearance="fill">
+                  <mat-label>Nombre</mat-label>
+                  <input
+                    placeholder="Name"
+                    matInput
+                    formControlName="name"
+                    type="text"
+                  />
+                  <mat-error *ngIf="nameField.hasError('required')"
+                    >El nombre es requerido</mat-error
+                  >
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-6">
+              <div class="box">
+                <button
+                  mat-raised-button
+                  color="primary"
+                  (click)="addAddressField()"
+                >
+                  Add address
+                </button>
+                <div
+                  formArrayName="address"
+                  *ngFor="let address of addressField.controls; let i = index"
+                >
+                  <div [formGroupName]="i">
+                    <mat-form-field appearance="fill">
+                      <mat-label>ZipCode</mat-label>
+                      <input
+                        placeholder="ZipCode"
+                        matInput
+                        formControlName="zip"
+                        type="text"
+                      />
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                      <mat-label>City</mat-label>
+                      <input
+                        placeholder="City"
+                        matInput
+                        formControlName="city"
+                        type="text"
+                      />
+                    </mat-form-field>
+                    <button
+                      mat-fab
+                      color="primary"
+                      aria-label="Example icon button with a delete icon"
+                      (click)="deleteAddressField(i)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">Next</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Pago</ng-template>
     <h1>contenifo</h1>
   </mat-step>
 </mat-horizontal-stepper>
-
